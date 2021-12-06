@@ -27,7 +27,7 @@ class AttendanceController extends Controller
     {
         $branch = Branch::all();
         $attendance = Attendance::where('user_id', auth()->user()->id)->get();
-        return view('attendance.branch-employee', compact('attendance','branch'));
+        return view('attendance.branch-self-attendance', compact('attendance','branch'));
     }
 
 
@@ -38,8 +38,6 @@ class AttendanceController extends Controller
 
     public function absence(Request $request)
     {
-
-
         // base64 to image
         $image = $request->photoURI;  // your base64 encoded
         $image = str_replace('data:image/png;base64,', '', $image);
@@ -49,14 +47,14 @@ class AttendanceController extends Controller
         Storage::put($full_path, base64_decode($image));
         // ddd($imageName);
 
-        // declaration
+        // declaration for time
         $date = Carbon::now()->format('Y-m-d');
         $time = Carbon::now()->format('H:i:s');
         $morningLimit = '07:00:00';
         $shiftLimit = '12:00:00';
         $afternoonLimit = '14:00:00';
 
-
+        // conditioning
         if(strtotime($time) < strtotime($morningLimit) && strtotime($time) < strtotime($shiftLimit) ) {
             $status = 1; #echo 'Pagi Tepat Waktu'
         } elseif(strtotime($time) > strtotime($morningLimit) && strtotime($time) < strtotime($shiftLimit) ) {
@@ -67,7 +65,7 @@ class AttendanceController extends Controller
             $status = 4; #echo 'Siang Terlambat'
         }
 
-        // validation
+        // validation for only user
         $employee = Attendance::where([
             ['user_id','=',auth()->user()->id],
             ['date','=',$date],
@@ -89,18 +87,19 @@ class AttendanceController extends Controller
         return redirect()->back()->with('start','You have successfully made attendance today. be enthusiastic at work ^_^');
     }
 
-    public function upload(Request $request)
-    {
-        $file_data = $request->input('imageprev');
-        $file_name = 'image_' . time() . '.png'; //generating unique file name;
 
-        if ($file_data != "") { // storing image in storage/app/public Folder
-            Storage::disk('public')->put($file_name, base64_decode($file_data));
-       }
-        return response()->json([
-            'data' => $file_name,
-        ]);
-    }
+    // public function upload(Request $request)
+    // {
+    //     $file_data = $request->input('imageprev');
+    //     $file_name = 'image_' . time() . '.png'; //generating unique file name;
+
+    //     if ($file_data != "") { // storing image in storage/app/public Folder
+    //         Storage::disk('public')->put($file_name, base64_decode($file_data));
+    //    }
+    //     return response()->json([
+    //         'data' => $file_name,
+    //     ]);
+    // }
 
 
     public function finishwork()

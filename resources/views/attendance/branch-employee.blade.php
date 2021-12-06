@@ -9,7 +9,6 @@ License: You must have a valid license purchased only from https://themeforest.n
 <html>
 
 {{-- head --}}
-
 <head>
     <title>NobleUI Laravel Admin Dashboard Template</title>
     <meta charset="utf-8">
@@ -72,7 +71,6 @@ License: You must have a valid license purchased only from https://themeforest.n
 </head>
 
 {{-- body --}}
-
 <body data-base-url="{{ url('/') }}" onload="realtimeClock()">
     <script src="{{ asset('assets/js/spinner.js') }}"></script>
     <div class="main-wrapper" id="app">
@@ -164,10 +162,8 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                     <td>{{ $attend->working_hours }}</td>
                                                     <td>{{ $attend->attendance_info->desc }}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-primary btn-icon">
-                                                            <i data-feather="edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-danger btn-icon">
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" data-target="#photoModal">
                                                             <i data-feather="image"></i>
                                                         </button>
                                                     </td>
@@ -180,6 +176,30 @@ License: You must have a valid license purchased only from https://themeforest.n
                         </div>
                     </div>
                 </div>
+
+                {{-- modal to show picture --}}
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ $attendance->images }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 <!-- Modal Add new absence-->
                 <div class="modal fade " id="AddAbsen" tabindex="-1" role="dialog" aria-labelledby="AddAbsenLabel"
