@@ -27,7 +27,7 @@ class AttendanceController extends Controller
     {
         $branch = Branch::all();
         $attendance = Attendance::where('user_id', auth()->user()->id)->get();
-        return view('attendance.branch-self-attendance', compact('attendance','branch'));
+        return view('attendance.branch-employee', compact('attendance','branch'));
     }
 
 
@@ -42,9 +42,11 @@ class AttendanceController extends Controller
         $image = $request->photoURI;  // your base64 encoded
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageName = time().'.'.'png';
+        $imageName = time().'.'.'jpeg';
         $full_path = 'branch/' . $imageName;
         Storage::put($full_path, base64_decode($image));
+
+         
         // ddd($imageName);
 
         // declaration for time
