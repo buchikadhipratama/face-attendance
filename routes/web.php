@@ -4,9 +4,13 @@ use App\Attendance;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmploymentController;
 use App\Http\Controllers\PricelistController;
+use App\Http\Controllers\UserController;
+use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +30,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 //     Route::get('/admin/logout', 'LoginController@logout');
 // });
 
-Route::get('/', [dashboardController::class, 'index'])->middleware('auth');
+Route::get('/', [dashboardController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/dashboard', function(){
+    return redirect()->route('home');
+});
 
 //Registration
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
@@ -47,11 +54,10 @@ Route::get('/asd', function () {
     return view('dashboard');
 });
 
-Route::group(['prefix' => 'attendance'], function(){
+Route::group(['prefix' => 'attendance', 'middleware'=>['auth']], function(){
     // attendance list
     Route::get('employee-attendance-list', [AttendanceController::class, 'showList']);
     Route::post('employee-attendance-list/filter', [AttendanceController::class, 'filterList'])->name('filterList');
-
 
     // absensi karyawan
     Route::get('branch-employee', [AttendanceController::class, 'index']);
@@ -59,6 +65,28 @@ Route::group(['prefix' => 'attendance'], function(){
     Route::post('branch-employee/start-work', [AttendanceController::class, 'absence'])->name('start-work');
     Route::post('branch-employee/finish-work', [AttendanceController::class, 'finishwork'])->name('finish-work');
     Route::get('sales-visit', function() {return view('attendance.visit'); });
+});
+
+// datamaster
+Route::group(['prefix' => 'datamaster', 'middleware'=> ['auth']], function(){
+    Route::group(['prefix' => 'branch'], function(){
+        Route::get('/', [BranchController::class, 'index']);
+        Route::post('edit/{id}', [BranchController::class, 'edit']);
+        Route::post('update/{id}', [BranchController::class, 'update']);
+        Route::post('delete/{id}', [BranchController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'role'], function(){
+        Route::get('/', [EmploymentController::class, 'index']);
+        Route::post('update', [EmploymentController::class, 'update']);
+        Route::post('delete/{id}', [EmploymentController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('update', [UserController::class, 'update']);
+        Route::post('delete', [UserController::class, 'delete']);
+    });
 });
 
 

@@ -21,14 +21,14 @@
 
             <li class="nav-item nav-category">Web App</li>
 
-            <li class="nav-item {{ active_class(['absen/*']) }}">
+            <li class="nav-item {{ active_class(['attendance/*']) }}">
                 <a class="nav-link" data-toggle="collapse" href="#attendance" role="button"
                     aria-expanded="{{ is_active_route(['attendance/*']) }}" aria-controls="attendance">
                     <i class="link-icon" data-feather="calendar"></i>
                     <span class="link-title">Attendances</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['attendance/*']) }}" id="attendance">
+                <div class="collapse {{ show_class(['attendance/employee-attendance-list/*']) }}" id="attendance">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ url('/attendance/employee-attendance-list') }}"
@@ -47,14 +47,61 @@
                 </div>
             </li>
 
-            {{-- <li class="nav-item {{ active_class(['/gaji']) }}">
-                <a href="{{ url('/gaji') }}" class="nav-link">
-                    <i class="link-icon" data-feather="dollar-sign"></i>
-                    <span class="link-title">Gaji</span>
+            <li class="nav-item {{ active_class(['datamaster/*']) }}">
+                <a class="nav-link" data-toggle="collapse" href="#datamaster" role="button"
+                    aria-expanded="{{ is_active_route(['datamaster/*']) }}" aria-controls="datamaster">
+                    <i class="link-icon" data-feather="feather"></i>
+                    <span class="link-title">Data Master</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
+                <div class="collapse {{ show_class(['datamaster/*']) }}" id="datamaster">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ url('/datamaster/branch') }}"
+                                class="nav-link {{ active_class(['datamaster/branch']) }}">Branch</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/datamaster/user') }}"
+                                class="nav-link {{ active_class(['datamaster/user']) }}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/datamaster/employment') }}"
+                                class="nav-link {{ active_class(['datamaster/employment']) }}">Employment</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+
+            {{-- <li class="nav-item {{ active_class(['datamaster/*']) }}">
+                <a class="nav-link" data-toggle="collapse" href="#datamaster" role="button"
+                    aria-expanded="{{ is_active_route(['data/*']) }}" aria-controls="datamaster">
+                    <i class="link-icon" data-feather="calendar"></i>
+                    <span class="link-title">Data Master</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ show_class(['datamaster/*']) }}" id="attendance">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ url('/datamaster/branch') }}"
+                                class="nav-link {{ active_class(['/datamaster/branch']) }}">Branch</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/datamaster/employee') }}"
+                                class="nav-link {{ active_class(['datamaster/employee']) }}">Employee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/datamaster/employment') }}"
+                                class="nav-link {{ active_class(['datamaster/employment']) }}">employment</a>
+                        </li>
+                    </ul>
+                </div>
             </li> --}}
 
-            <li class="nav-item {{ active_class(['/pricelist']) }}">
+            {{-- ini belum selesai --}}
+            {{-- <li class="nav-item nav-category">yang dibawah template-nya</li> --}}
+            {{-- <li class="nav-item {{ active_class(['/pricelist']) }}">
                 <a href="{{ url('/pricelist') }}" class="nav-link">
                     <i class="link-icon" data-feather="list"></i>
                     <span class="link-title">Pricelist</span>
@@ -66,7 +113,7 @@
                     <i class="link-icon" data-feather="grid"></i>
                     <span class="link-title">Catalog</span>
                 </a>
-            </li>
+            </li> --}}
 
 
             {{-- pemisahnya --}}

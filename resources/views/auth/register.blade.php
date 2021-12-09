@@ -49,7 +49,7 @@
                                         <label for="Role">Employment</label>
                                         <select class="form-control @error('role') is-invalid @enderror" name="role"
                                             id="role" required>
-                                            <option selected disabled value="0">Choose your employment</option>
+                                            <option selected disabled value="0">Choose your Role</option>
                                             @foreach ($roles as $r)
                                                 <option value="{{ $r->id }}">{{ $r->role_name }}</option>
                                             @endforeach

@@ -27,7 +27,7 @@ class AttendanceController extends Controller
     {
         $branch = Branch::all();
         $attendance = Attendance::where('user_id', auth()->user()->id)->get();
-        $dateImages = Attendance::where('user_id',auth()->user()->id)->first();
+        // $dateImages = Attendance::where('user_id',auth()->user()->id)->first();
         return view('attendance.branch-employee', compact('attendance','branch'));
     }
 
