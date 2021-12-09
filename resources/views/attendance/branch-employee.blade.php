@@ -164,11 +164,12 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                     <td>{{ $attend->working_hours }}</td>
                                                     <td>{{ $attend->attendance_info->desc }}</td>
                                                     <td>
-                                                        <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-danger btn-icon"
-                                                            data-toggle="modal" data-target="#photoModal">
-                                                            <i data-feather="image"></i>
-                                                        </button>
+                                                        @if ($attend->images != null)
+                                                            <a href="/storage/branch/{{ $attend->images }}"
+                                                                target="_blank">Lihat</a>
+                                                        @else
+                                                            no photo
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -180,39 +181,7 @@ License: You must have a valid license purchased only from https://themeforest.n
                     </div>
                 </div>
 
-                {{-- modal to show picture --}}
-
                 <!-- Modal -->
-                <div class="modal fade" id="photoModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @foreach ($attendance as $img)
-                                {{-- @if ($attendance->images)
-                                <div class="modal-body"> --}}
-                                <img src="{{ asset('storage/branch/' . $img->images) }}" alt="">
-                                {{ $img->images }}
-                                {{-- </div>
-                            @else
-                                <div class="modal-body">
-                                    there's no photos
-                                </div>
-                            @endif --}}
-
-                            @endforeach
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Modal Add new absence-->
                 <div class="modal fade " id="AddAbsen" tabindex="-1" role="dialog" aria-labelledby="AddAbsenLabel"
@@ -243,29 +212,19 @@ License: You must have a valid license purchased only from https://themeforest.n
                                             </div>
                                         </div>
                                         <hr>
-
                                         {{-- webcam result --}}
                                         <div class="row justify-content-md-center">
-                                            {{-- ini yang sebelumnya dipakai --}}
-                                            {{-- <div class="col md-auto">
-                                                <canvas style="border: 1px solid #03a9f3; height: 240px; width: 320px;"
-                                                    class="mt-3" id="canvas">
-                                                    Your captured image will appear here...
-                                                </canvas>
-                                            </div> --}}
                                             <div class="form-grup">
                                                 <div class="col md-auto form-group form-capture">
                                                     <div id="results"></div>
-                                                    {{-- <input type="hidden" name="photoURI" id="photoURI" /> --}}
-                                                    <p class="text-center">Your captured image will appear
+                                                    <p class="text-center">Your captured image will
+                                                        appear
                                                         below...</p>
                                                     <canvas
                                                         style="border: 1px solid #03a9f3; height: 240px; width: 360px;"
                                                         class="mt-3 align-middle" id="canvas" value="">
                                                     </canvas>
                                                 </div>
-                                                <button type="button" class="btn btn-primary" id="snap" download
-                                                    onclick="SaveAPicture()">snap</button>
                                             </div>
                                             <div class="col md-auto">
                                                 <div class="mt-3">
@@ -283,48 +242,48 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                         </div>
                                                     @endforeach
                                                 </div>
-                                                {{-- </div> --}}
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                         </div>
-                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-            </div>
-
-            {{-- Modal Finish work --}}
-            <div class="modal fade" id="FinishWork" tabindex="-1" role="dialog" aria-labelledby="FinishWorkLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form action="{{ route('finish-work') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="FinishWorkLabel">End Work</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                is your work done and you want to go home now?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-                                <button type="submit" class="btn btn-danger">Go Home NOW</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-        @include('layout.footer')
+    </div>
+
+    {{-- Modal Finish work --}}
+    <div class="modal fade" id="FinishWork" tabindex="-1" role="dialog" aria-labelledby="FinishWorkLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('finish-work') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="FinishWorkLabel">End Work</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        is your work done and you want to go home now?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                        <button type="submit" class="btn btn-danger">Go Home NOW</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    @include('layout.footer')
     </div>
     </div>
 
@@ -352,159 +311,18 @@ License: You must have a valid license purchased only from https://themeforest.n
         function takeAPicture() {
             // play sound effect
             shutter.play();
+            // get base64 of the image from webcam
             var base64image = webcam.snap();
             document.getElementById('results').innerHTML = '<img id="imageprev" style="display: none;" src="' +
                 base64image + '"/>';
-            // console.log(base64image);
 
             document.getElementById('canvas').innerHTML = '<input type="hidden" name="photoURI" id="photoURI" value="' +
                 base64image + '"/>';
 
             var input = document.getElementById("photoURI").value;
             console.log(input);
-
-
-            // console.log(base64image);
-
-            // canvasElement.val = base64image;
-            // console.log(base64image);
         }
-
-        // function saveSnap() {
-        //     var base64toImage = document.getElementById("imageprev").src;
-        //     webcam.upload(base64toImage, '/attendance/branch-employee/upload-foto', function(code, text) {
-        //         console.log('semangat guis');
-        //     });
-        //     // console.log(base64toImage);
-        // }
-
-        function SaveAPicture() {
-            // var base64toImage = document.getElementById("imageprev").src;
-            var base64toImage = document.getElementById('imageprev').getAttribute('src')
-            // webcam.upload(base64toImage, '/attendance/upload-photo', function(code, text) {
-            //     console.log('Save Successfully');
-            //     const data = JSON.parse(text);
-            //     $("#photoURI").val(data.data);
-            // });
-            var image = new Image();
-            image.src = base64toImage;
-            document.body.appendChild(image);
-
-            console.log(image);
-        }
-
-
-        // fix
-        // function takeAPicture() {
-        //     // play sound effect
-        //     shutter.play();
-        //     var base64image = webcam.snap();
-        //     canvasElement.val = base64image;
-        //     console.log(base64image);
-        // }
-
-        // function saveSnap() {
-        //     webcam.upload(base64image, '/attendance/upload-photo', function(code, text) {
-        //         console.log('Save Successfully');
-        //         const data = JSON.parse(text);
-        //         #('#photoURI').val(data.data);
-        //     });
-        // }
-
-        // function takeSnapshot() {
-        //     var img = document.createElement('img');
-        //     var context;
-        //     var width = video.offsetWidth,
-        //         height = video.offsetHeight;
-
-        //     canvas = document.createElement('canvas');
-        //     canvas.width = width;
-        //     canvas.height = height;
-
-        //     context = canvas.getContext('2d');
-        //     context.drawImage(video, 0, 0, width, height);
-
-        //     img.src = canvas.toDataURL('image/png');
-        //     document.body.appendChild(img);
-        // }
     </script>
-
-
-
-
-    {{-- ini yang fix sebelumya --}}
-    {{-- <script>
-        // preload shutter audio clip
-        let shutter = new Audio();
-        shutter.autoplay = false;
-        shutter.src = '/audio/sound.mp3';
-
-        const webcamElement = document.getElementById("webcam");
-        const canvasElement = document.getElementById("canvas");
-        const webcam = new Webcam(webcamElement, "user", canvasElement);
-        webcam.start();
-
-
-        function takeAPicture() {
-            // play sound effect
-            shutter.play();
-            webcam.snap(function(data_uri) {
-                document.getElementById('canvas').innerHTML = '<img id="imageprev" width="300" src="' + data_uri +
-                    '"/>';
-            });
-        }
-
-        function saveSnap() {
-            // Get base64 value from <img id='imageprev'> source
-            var base64image = document.getElementById("imageprev").src;
-            webcam.upload(base64image, '/attendance/photo', function(code, text) {
-                console.log('Save successfully');
-                const data = JSON.parse(text);
-                $("#name_photo").val(data.data);
-            });
-        }
-    </script> --}}
-
-
-
-
-    {{-- dibawah ini orak orek --}}
-
-    {{-- <script>
-        Webcam.set({
-            width: 320,
-            height: 240,
-            dest_width: 640,
-            dest_height: 480,
-            image_format: 'jpeg',
-            jpeg_quality: 90
-        });
-        Webcam.attach('#my_camera');
-
-        let shutter = new Audio();
-        shutter.autoplay = false;
-        shutter.src = 'audio/sound.mp3';
-
-        function take_snapshot() {
-            shutter.play();
-
-            Webcam.snap(function(data_uri) {
-                document.getElementById('results').innerHTML = ' <img id="imageprev" width="300" src="' + data_uri +
-                    '"/>';
-            });
-        }
-
-        function saveSnap() {
-            var base64image = document.getElementById("imageprev").src;
-            Webcam.upload(base64image, '/attendance/photo'function(code, text) {
-                console.log('Save successfully');
-                const data = JSON.parse(text);
-                $("#name_photo").val(data.data);
-            });
-        }
-    </script> --}}
-
-
 
 
     <!-- plugin js -->
@@ -519,200 +337,3 @@ License: You must have a valid license purchased only from https://themeforest.n
 </body>
 
 </html>
-
-
-
-
-
-
-
-{{-- <script>
-    var video = document.querySelector("#video-webcam");
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-    if (navigator.getUserMedia) {
-        navigator.getUserMedia({
-            video: true
-        }, handleVideo, videoError);
-    }
-
-    function handleVideo(stream) {
-        video.src = window.URL.createObjectURL(stream);
-        console.log(stream);
-    }
-
-    function videoError(e) {
-        // do something
-        alert("Izinkan menggunakan webcam untuk demo!")
-    }
-
-    function takeSnapshot() {
-        var img = document.createElement('img');
-        var context;
-        var width = video.offsetWidth,
-            height = video.offsetHeight;
-
-        canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-
-        context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, width, height);
-
-        img.src = canvas.toDataURL('image/png');
-        document.body.appendChild(img);
-    }
-</script> --}}
-
-{{-- <script>
-    Webcam.set({
-        width: 320,
-        height: 240,
-        image_format: 'jpeg',
-        jpeg_quality: 100
-    });
-    Webcam.attach("#my_camera");
-
-    function take_picture() {
-        Webcam.snap(function(data_uri) {
-            $(".image-tag").val(data_uri);
-
-            document.getElementById('results').innerHTML = '<img src"' + data_uri + '"/>';
-
-        });
-    }
-</script> --}}
-
-{{-- <script language="JavaScript">
-    Webcam.set({
-        width: 490,
-        height: 390,
-        image_format: 'jpeg',
-        jpeg_quality: 90
-    });
-
-    Webcam.attach('#my_camera');
-
-    function take_snapshot() {
-        Webcam.snap(function(data_uri) {
-            $(".image-tag").val(data_uri);
-            document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
-        });
-    }
-</script> --}}
-
-{{-- <script>
-    // load webcam
-    Webcam.set({
-        width: 350,
-        height: 350,
-        image_format: 'jpeg',
-        jpeg_quality: 90
-    })
-    Webcam.attach("#camera");
-</script> --}}
-
-{{-- <script>
-    var video = document.querySelector("#video-webcam");
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-    if( navigator.getUserMedia ){
-        navigator.getUserMedia({video: true}, handleVideo, videoError);
-    }
-
-    function handleVideo(stream) {
-        video.scrObject = stream;
-    }
-
-    function videoError (e) {
-        alert("izinkan menggunakan Webcam untuk melakukan absensi")
-    }
-
-    function takeSnapshot() {
-        var img = document.createElement('img');
-        var context;
-
-        var width = video.offsetWidth
-        var height = video.offsetHeight;
-
-        canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-
-        context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, width, height);
-
-        img.src = canvas.toDataURL('image/png');
-        document.body.appendChild(img);
-    }
-</script> --}}
-
-{{-- function timestamp() {
-        $.ajax({
-        url: 'http://localhost/timestamp.php',
-        success: function(data) {
-        $('#timestamp').html(data);
-        },
-        });
-        } --}}
-
-{{-- take a picture - trial --}}
-{{-- versi pertama --}}
-{{-- <label>File upload</label> --}}
-{{-- <input type="file" name="img[]" class="file-upload-default"> --}}
-{{-- <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled=""
-                                    placeholder="Upload Image">
-                                    <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                    </div> --}}
-
-{{-- tutorial bahasa indonesia --}}
-{{-- <video autoplay="true" id="video-webcam" src="">
-                                take a picture
-                                </video>
-                                <div>
-                                <button onclick="takeSnapshot()">take a picture</button>
-                                </div> --}}
-
-{{-- orang india --}}
-{{-- <div id="camera"></div>
-                                <button onclick="take_snapshot()">Take Snapshot</button> --}}
-
-{{-- webplatform --}}
-{{-- <div class="col-md-6">
-                                <div id="my_camera"></div>
-                                <br />
-                                <input type=button value="Take Snapshot" onClick="take_snapshot()">
-                                <input type="hidden" name="image" class="image-tag">
-                                </div>
-                                <div class="col-md-6">
-                                <div id="results">Your captured image will appear here...</div>
-                                </div> --}}
-
-
-{{-- petani kode --}}
-{{-- <div>
-                                <video autoplay="true" id="video-webcam">
-                                    Izinkan untuk Mengakses Webcam untuk Demo
-                                </video>
-                                <button onclick="takeSnapshot()">Ambil Gambar</button>
-                                </div> --}}
-
-{{-- novinaldi --}}
-{{-- <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Ambil Gambar (webcam)</label>
-                                <div class="col-sm-6">
-                                    <div id="my_camera">
-
-                                    </div>
-                                    <p>
-                                        <button type="button" class="btn btn-sm btn-info" onclick="take_picture()">Ambil
-                                            Gambar</button>
-                                    </p>
-                                </div>
-                                </div> --}}

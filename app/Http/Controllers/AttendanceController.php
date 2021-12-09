@@ -27,6 +27,7 @@ class AttendanceController extends Controller
     {
         $branch = Branch::all();
         $attendance = Attendance::where('user_id', auth()->user()->id)->get();
+        $dateImages = Attendance::where('user_id',auth()->user()->id)->first();
         return view('attendance.branch-employee', compact('attendance','branch'));
     }
 
@@ -46,7 +47,7 @@ class AttendanceController extends Controller
         $full_path = 'branch/' . $imageName;
         Storage::put($full_path, base64_decode($image));
 
-         
+
         // ddd($imageName);
 
         // declaration for time
@@ -88,20 +89,6 @@ class AttendanceController extends Controller
         }
         return redirect()->back()->with('start','You have successfully made attendance today. be enthusiastic at work ^_^');
     }
-
-
-    // public function upload(Request $request)
-    // {
-    //     $file_data = $request->input('imageprev');
-    //     $file_name = 'image_' . time() . '.png'; //generating unique file name;
-
-    //     if ($file_data != "") { // storing image in storage/app/public Folder
-    //         Storage::disk('public')->put($file_name, base64_decode($file_data));
-    //    }
-    //     return response()->json([
-    //         'data' => $file_name,
-    //     ]);
-    // }
 
 
     public function finishwork()
