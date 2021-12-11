@@ -7,80 +7,60 @@ use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $branches = Branch::all();
         return view('branches.show', compact('branches'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+            // $this->validate($request,[
+            //     'branch_name' => 'required',
+            //     'branch_address' => 'required',
+            //     'branch_phone' => 'required',
+            // ]);
+
+            $branch = Branch::find($request->id);
+
+            $branch->branch_name = $request->input('branch_name');
+            $branch->alamat = $request->input('branch_address');
+            $branch->phone = $request->input('branch_phone');
+
+            $branch->save();
+
+            return view('users.show');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function delete(Request $request)
     {
-        //
+        $branch = Branch::find($request->id);
+        $branch->status = 2;
+        // dd($request);
+
+        $branch->save();
+        return redirect()->back();
     }
 }

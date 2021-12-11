@@ -52,18 +52,17 @@ class UserController extends Controller
         $user->role = $request->input('role');
 
         $user->save();
-        return redirect()->back();
-
+        return redirect()->back()->with('update','Data updated successfully!');
     }
 
     public function delete(Request $request)
     {
 
         $user = User::find($request->id);
-        $user->status = $request->input('Dstatus');
+        $user->status = 2;
         // dd($request);
 
         $user->save();
-        return redirect()->back();
+        return redirect()->back()->with('delete','Data deleted successfully!');
     }
 }

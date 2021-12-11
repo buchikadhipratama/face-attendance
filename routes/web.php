@@ -9,6 +9,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmploymentController;
 use App\Http\Controllers\PricelistController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Logout;
@@ -71,15 +72,14 @@ Route::group(['prefix' => 'attendance', 'middleware'=>['auth']], function(){
 Route::group(['prefix' => 'datamaster', 'middleware'=> ['auth']], function(){
     Route::group(['prefix' => 'branch'], function(){
         Route::get('/', [BranchController::class, 'index']);
-        Route::post('edit/{id}', [BranchController::class, 'edit']);
-        Route::post('update/{id}', [BranchController::class, 'update']);
-        Route::post('delete/{id}', [BranchController::class, 'delete']);
+        Route::post('update', [BranchController::class, 'update']);
+        Route::post('delete', [BranchController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'role'], function(){
-        Route::get('/', [EmploymentController::class, 'index']);
-        Route::post('update', [EmploymentController::class, 'update']);
-        Route::post('delete/{id}', [EmploymentController::class, 'delete']);
+        Route::get('/', [RoleController::class, 'index']);
+        Route::post('update', [RoleController::class, 'update']);
+        Route::post('delete', [RoleController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'user'], function(){

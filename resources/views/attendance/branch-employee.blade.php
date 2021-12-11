@@ -117,9 +117,10 @@ License: You must have a valid license purchased only from https://themeforest.n
 
                                 <!-- Button trigger modal -->
                                 <center>
-                                    <div class="card" style="width: 25rem;">
+                                    <div class="card mb-4" style="width: 25rem;">
                                         <div class="card-body">
-                                            <h2 class="card-title">Attendance Form</h2>
+                                            <h2 class="card-subtitle">{{ auth()->user()->name }}</h2>
+                                            <h3 class="card-subtitle mb-2 text-muted">Attendance Form</h3>
 
                                             <h6 class="card-subtitle mb-2 text-muted" id="clock" for="clock"
                                                 style="font-size: 40px">
@@ -227,7 +228,7 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                 </div>
                                             </div>
                                             <div class="col md-auto">
-                                                <div class="mt-3">
+                                                <div class="mt-5">
                                                     <span>Choose your work location</span>
                                                 </div>
                                                 <div class="form-group">
@@ -244,16 +245,17 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancle</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
                 </div>
-                </form>
             </div>
         </div>
     </div>
@@ -282,10 +284,7 @@ License: You must have a valid license purchased only from https://themeforest.n
             </div>
         </div>
     </div>
-    </div>
     @include('layout.footer')
-    </div>
-    </div>
 
     <!-- base js -->
     <script src="{{ asset('js/app.js') }}"></script>

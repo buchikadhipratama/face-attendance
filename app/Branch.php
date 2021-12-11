@@ -10,6 +10,7 @@ class Branch extends Model
 {
     use HasFactory;
     protected $table = 'branches';
+    protected $fillable = ['branch_name','alamat','phone','status'];
 
     public function attendance()
     {

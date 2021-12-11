@@ -10,6 +10,26 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
+                {{-- update session --}}
+                @if (session('update'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('update') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                {{-- delete session --}}
+                @if (session('delete'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('delete') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
+
                 <div class="card-body">
                     <h6 class="card-title">Data Table</h6>
                     <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official
@@ -50,7 +70,6 @@
                                                 <button type="button" class="btn btn-danger delete" data-toggle="modal"
                                                     data-target="#delete">Delete
                                                 </button>
-
                                             </td>
                                         </tr>
                                     @endif
@@ -145,7 +164,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" class="form-control" id="Dstatus" name="Dstatus">
                         </fieldset>
                     </form>
                 </div>
@@ -190,21 +208,15 @@
             if ($(this).hasClass('child')) {
                 $tr = $tr.prev('.parent');
             }
-
             var data = table.row($tr).data();
-            console.log(data);
-
-            var del = 0;
 
             $('#Dname').val(data[1]);
             $('#DemailAddress').val(data[3]);
             $('#Drole option:contains(' + data[4] + ')').prop("selected", true);
-            $('#Dstatus').val(del);
             $('#IdDel').val(data[2]);
 
             $('#deleteModal').modal('show');
         });
-
         $('#btnDelete').click(function() {
             $('#deleteForm').submit();
         });
@@ -213,39 +225,11 @@
     });
 </script>
 
-{{-- <script>
-    $('#editForm').on('submit', function(e) {
-        e.preventDefault();
-
-        var id = $('#id').val();
-
-        $.ajax({
-            type: "PUT",
-            url: "/test" + data[0],
-            data: $('#editForm').serialize(),
-            success: function(response) {
-                console.log(response);
-                $('#editModal').modal('hide');
-                alert("data UPdated");
-            },
-            error: function(error) {
-                console.log(error);
-            }
-
-        })
-
-        $('#editForm').modal('show');
-    });
-</script> --}}
-
-
 @push('plugin-scripts')
     {{-- <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
-
-
 @endpush
 
 @push('custom-scripts')
