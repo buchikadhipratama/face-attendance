@@ -36,10 +36,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Branch Name</th>
-                                    <th>Branch_id</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
+                                    <th>Nama Toko Cabang</th>
+                                    <th>ID Cabang</th>
+                                    <th>Alamat</th>
+                                    <th>No. Telpon</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -54,17 +54,17 @@
                                         <td>{{ $branch->phone }}</td>
                                         <td>
                                             @if ($branch->status == 1)
-                                                Active
+                                                Aktif
                                             @else
-                                                Not Active
+                                                Tidak Aktif
                                             @endif
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary editBranch">
-                                                edit
+                                                Edit
                                             </button>
                                             <button type="button" class="btn btn-danger deleteBranch" data-toggle="modal"
-                                                data-target="#deleteBranch">Delete
+                                                data-target="#deleteBranch">Hapus
                                             </button>
                                         </td>
                                     </tr>
@@ -96,25 +96,25 @@
                     <div class="modal-body">
                         <form class="forms-sample">
                             <div class="form-group">
-                                <label for="branch_name">Name</label>
+                                <label for="branch_name">Nama Toko Cabang</label>
                                 <input type="text" class="form-control" autocomplete="off" id="branch_name"
                                     name="branch_name" placeholder="name">
                             </div>
                             <div class="form-group">
-                                <label for="branch_address">Branch Address</label>
+                                <label for="branch_address">Alamat Toko</label>
                                 <input type="text" class="form-control" id="branch_address" name="branch_address"
                                     placeholder="Branch Address">
                             </div>
                             <div class="form-group">
-                                <label for="branch_phone">Phone Number</label>
+                                <label for="branch_phone">No. Telpon</label>
                                 <input type="text" class="form-control" id="branch_phone" name="branch_phone"
                                     placeholder="Phone Number">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input id="UpdateBranch" type="submit" class="btn btn-primary " value="Update Data">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                        <input id="UpdateBranch" type="submit" class="btn btn-primary " value="Perbarui Data">
                     </div>
                 </form>
             </div>
@@ -126,7 +126,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete this data?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Apakah data yakin ingin dihapus?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -137,11 +137,11 @@
                         <input type="hidden" name="id" id="IdDel">
                         <fieldset disabled>
                             <div class="mb-3">
-                                <label for="Dname">Name</label>
+                                <label for="Dname">Nama Toko Cabang</label>
                                 <input type="text" class="form-control" id="Dname" name="Dname">
                             </div>
                             <div class="mb-3">
-                                <label for="DemailAddress" class="form-label">Email</label>
+                                <label for="DemailAddress" class="form-label">No. Telpon</label>
                                 <input type="DemailAddress" id="DemailAddress" class="form-control"
                                     placeholder="Disabled input">
                             </div>
@@ -149,8 +149,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input id="btnDelete" type="submit" class="btn btn-danger" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                    <input id="btnDelete" type="submit" class="btn btn-danger" value="Hapus">
                 </div>
             </div>
         </div>

@@ -119,23 +119,22 @@ License: You must have a valid license purchased only from https://themeforest.n
                                 <center>
                                     <div class="card mb-4" style="width: 25rem;">
                                         <div class="card-body">
-                                            <h2 class="card-subtitle">{{ auth()->user()->name }}</h2>
-                                            <h3 class="card-subtitle mb-2 text-muted">Attendance Form</h3>
+                                            <h3 class="card-subtitle text-muted">FORMULIR KEHADIRAN</h3>
+                                            <h5 class="card-subtitle">{{ auth()->user()->name }}</h5>
 
                                             <h6 class="card-subtitle mb-2 text-muted" id="clock" for="clock"
                                                 style="font-size: 40px">
                                             </h6>
-                                            <p class="card-text mb-3">Take today's absence by pressing the Absent
-                                                Button, and take a
-                                                home
-                                                absence by pressing the Leave Button</p>
+                                            <p class="card-text mb-3">Lakukan absensi kehadiran dengan menekan tombol
+                                                ABSEN
+                                                dan lakukan absensi kepulangan dengan menekan tombol PULANG</p>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#AddAbsen">
-                                                MARK ABSENCE
+                                                ABSEN
                                             </button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#FinishWork">
-                                                LEAVE
+                                                PULANG
                                             </button>
                                         </div>
                                     </div>
@@ -146,11 +145,11 @@ License: You must have a valid license purchased only from https://themeforest.n
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Branch</th>
-                                                <th>Start</th>
-                                                <th>Finish</th>
-                                                <th>Working Hours</th>
+                                                <th>TANGGAL</th>
+                                                <th>LOKASI</th>
+                                                <th>KEDATANGAN</th>
+                                                <th>KEPULANGAN</th>
+                                                <th>JAM KERJA</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -169,7 +168,7 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                             <a href="/storage/branch/{{ $attend->images }}"
                                                                 target="_blank">Lihat</a>
                                                         @else
-                                                            no photo
+                                                            TIDAK ADA FOTO
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -190,7 +189,7 @@ License: You must have a valid license purchased only from https://themeforest.n
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahAbsenLabel">Attendance Form</h5>
+                                <h5 class="modal-title" id="tambahAbsenLabel">FORMULIR ABSENSI</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -208,7 +207,7 @@ License: You must have a valid license purchased only from https://themeforest.n
                                                     height="240"></video>
                                                 <div class="col text-center">
                                                     <button type="button" class="btn btn-primary" id="snap" download
-                                                        onclick="takeAPicture()">snap</button>
+                                                        onclick="takeAPicture()">AMBIL GAMBAR</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,9 +217,8 @@ License: You must have a valid license purchased only from https://themeforest.n
                                             <div class="form-grup">
                                                 <div class="col md-auto form-group form-capture">
                                                     <div id="results"></div>
-                                                    <p class="text-center">Your captured image will
-                                                        appear
-                                                        below...</p>
+                                                    <p class="text-center">gambar wajah anda akan terlihat dibawah...
+                                                    </p>
                                                     <canvas
                                                         style="border: 1px solid #03a9f3; height: 240px; width: 360px;"
                                                         class="mt-3 align-middle" id="canvas" value="">
@@ -229,7 +227,7 @@ License: You must have a valid license purchased only from https://themeforest.n
                                             </div>
                                             <div class="col md-auto">
                                                 <div class="mt-5">
-                                                    <span>Choose your work location</span>
+                                                    <span>pilih lokasi dimana anda bekerja</span>
                                                 </div>
                                                 <div class="form-group">
                                                     @foreach ($branch as $branch)
@@ -247,8 +245,8 @@ License: You must have a valid license purchased only from https://themeforest.n
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cancle</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                data-dismiss="modal">Batalkan</button>
+                                            <button type="submit" class="btn btn-primary">Kirim</button>
                                         </div>
                                     </div>
                                 </div>
@@ -268,17 +266,17 @@ License: You must have a valid license purchased only from https://themeforest.n
                 <form action="{{ route('finish-work') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="FinishWorkLabel">End Work</h5>
+                        <h5 class="modal-title" id="FinishWorkLabel">ABSENSI KEPULANGAN</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        is your work done and you want to go home now?
+                        apakah tugas anda telah selesai dan ingin melakukan absensi pulang?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-                        <button type="submit" class="btn btn-danger">Go Home NOW</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                        <button type="submit" class="btn btn-danger">PULANG</button>
                     </div>
                 </form>
             </div>

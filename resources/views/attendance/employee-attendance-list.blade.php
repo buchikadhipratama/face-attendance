@@ -20,12 +20,12 @@
                                 <div class="col col-sm-2">
                                 </div>
                                 <div class="col-md-5">
-                                    <p for="inputState" class="text-center">Time Period</p>
+                                    <p for="inputState" class="text-center">PERIODE WAKTU</p>
                                     <div class="input-group date datepicker">
                                         <input type="date" class="form-control" id="min" name="from"
                                             value="{{ date('Y-m-d') }}" />&nbsp
                                         <span class="input-group-addon">
-                                            to
+                                            sampai
                                         </span>
                                         <span class="input-group-addon"></span>
                                         <input type="date" class="form-control" id="max" name="to"
@@ -49,13 +49,13 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Date</th>
-                                    <th>Employee Name</th>
-                                    <th>Branch Shop</th>
-                                    <th>Start</th>
-                                    <th>Finish</th>
-                                    <th>Working Hours</th>
-                                    <th>Status</th>
+                                    <th>TANGGAL</th>
+                                    <th>NAMA KARYAWAN</th>
+                                    <th>LOKASI KERJA</th>
+                                    <th>MULAI KERJA</th>
+                                    <th>PULANG KERJA</th>
+                                    <th>LAMA KERJA</th>
+                                    <th>STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>

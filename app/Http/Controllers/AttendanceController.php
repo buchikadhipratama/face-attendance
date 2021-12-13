@@ -36,7 +36,7 @@ class AttendanceController extends Controller
     {
         //
     }
-
+ 
     public function absence(Request $request)
     {
         // base64 to image

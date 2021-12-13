@@ -11,6 +11,7 @@ use App\Http\Controllers\EmploymentController;
 use App\Http\Controllers\PricelistController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkingHourController;
 use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [dashboardController::class, 'index'])->middleware('auth')->name('home');
 Route::get('/dashboard', function(){
+    return redirect()->route('home');
+});
+Route::get('/home', function(){
     return redirect()->route('home');
 });
 
@@ -76,16 +80,16 @@ Route::group(['prefix' => 'datamaster', 'middleware'=> ['auth']], function(){
         Route::post('delete', [BranchController::class, 'delete']);
     });
 
-    Route::group(['prefix' => 'role'], function(){
-        Route::get('/', [RoleController::class, 'index']);
-        Route::post('update', [RoleController::class, 'update']);
-        Route::post('delete', [RoleController::class, 'delete']);
-    });
-
     Route::group(['prefix' => 'user'], function(){
         Route::get('/', [UserController::class, 'index']);
         Route::post('update', [UserController::class, 'update']);
         Route::post('delete', [UserController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'working-hour'], function(){
+        Route::get('/', [WorkingHourController::class, 'index']);
+        Route::post('working-hour', [WorkingHourController::class, 'update']);
+        Route::post('working-hour', [WorkingHourController::class, 'delete']);
     });
 });
 

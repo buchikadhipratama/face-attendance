@@ -7,7 +7,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
         <div>
-            <h4 class="mb-3 mb-md-0">Welcome Back, {{ auth()->user()->name }}</h4>
+            <h4 class="mb-3 mb-md-0">Selamat Datang, {{ auth()->user()->name }}</h4>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-baseline">
-                                    <h6 class="card-title mb-0">Attendance</h6>
+                                    <h6 class="card-title mb-0">Absensi Karyawan</h6>
                                     <div class="dropdown mb-2">
                                         <button class="btn p-0" type="button" id="dropdownMenuButton"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,11 +29,11 @@
                                             <a class="dropdown-item d-flex align-items-center"
                                                 href="{{ url('/attendance/employee-attendance-list') }}">
                                                 <i data-feather="printer" class="icon-sm mr-2"></i>
-                                                <span class="">Employee Attendance List</span></a>
+                                                <span class="">Daftar Absensi Karyawan</span></a>
                                             <a class="dropdown-item d-flex align-items-center"
                                                 href="{{ url('/attendance/branch-employee') }}">
                                                 <i data-feather="download" class="icon-sm mr-2"></i>
-                                                <span class="">Branch Employee</span></a>
+                                                <span class="">Absensi Karyawan</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-baseline">
-                                    <h6 class="card-title mb-0">Data Master</h6>
+                                    <h6 class="card-title mb-0">Master Data</h6>
                                     <div class="dropdown mb-2">
                                         <button class="btn p-0" type="button" id="dropdownMenuButton1"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,12 +54,12 @@
                                             <a class="dropdown-item d-flex align-items-center"
                                                 href="{{ url('/datamaster/branch') }}">
                                                 <i data-feather="eye" class="icon-sm mr-2"></i>
-                                                <span class="">Branches</span>
+                                                <span class="">Toko Cabang</span>
                                             </a>
                                             <a class="dropdown-item d-flex align-items-center"
                                                 href="{{ url('/datamaster/user') }}">
                                                 <i data-feather="edit-2" class="icon-sm mr-2"></i>
-                                                <span class="">Users</span>
+                                                <span class="">Pengguna</span>
                                             </a>
                                         </div>
                                     </div>
