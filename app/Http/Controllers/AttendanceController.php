@@ -9,8 +9,10 @@ use DateTimeZone;
 use Carbon\Carbon;
 use App\Attendance;
 use App\StatusHadir;
+use App\WorkingHour;
 use App\AttendanceInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +29,22 @@ class AttendanceController extends Controller
     {
         $branch = Branch::all();
         $attendance = Attendance::where('user_id', auth()->user()->id)->get();
+
+        // $articles = Article::latest()->paginate(10)->groupBy(function($article){
+        //     return $article->created_at->format('M');});
+
+
         // $dateImages = Attendance::where('user_id',auth()->user()->id)->first();
+
+
+        // $users = DB::table('attendances')->simplePaginate(15);
+
+        // DB::table('attendances')
+        //     ->join('branch', 'attendances.id', '=', 'branch.branch_id')
+        //     ->select('users.id', 'contacts.phone', 'orders.price')
+        //     ->get();
+
+
         return view('attendance.branch-employee', compact('attendance','branch'));
     }
 
@@ -36,7 +53,7 @@ class AttendanceController extends Controller
     {
         //
     }
- 
+
     public function absence(Request $request)
     {
         // base64 to image
@@ -47,24 +64,36 @@ class AttendanceController extends Controller
         $full_path = 'branch/' . $imageName;
         Storage::put($full_path, base64_decode($image));
 
-
-        // ddd($imageName);
-
         // declaration for time
         $date = Carbon::now()->format('Y-m-d');
         $time = Carbon::now()->format('H:i:s');
-        $morningLimit = '07:00:00';
-        $shiftLimit = '12:00:00';
-        $afternoonLimit = '14:00:00';
+
+        $hour = WorkingHour::all();
+
+        $pagi = date('H:i:s', strtotime($hour[0]->time ));
+        $siang = date('H:i:s', strtotime($hour[1]->time ));
+        $sore = date('H:i:s', strtotime($hour[2]->time ));
+
+        // get pagi hour
+        $getPagi = DB::table('working_hours')->where('id', 1)->first();
+        $pagi = date('H:i:s', strtotime($getPagi->time )) ;
+
+        // get siang hour
+        $getSiang = DB::table('working_hours')->where('id', 2)->first();
+        $siang = date('H:i:s', strtotime($getSiang->time )) ;
+
+        // get sore hour
+        $getSore = DB::table('working_hours')->where('id', 3)->first();
+        $sore = date('H:i:s', strtotime($getSore->time )) ;
 
         // conditioning
-        if(strtotime($time) < strtotime($morningLimit) && strtotime($time) < strtotime($shiftLimit) ) {
+        if(strtotime($time) < strtotime($pagi) && strtotime($time) < strtotime($siang) ) {
             $status = 1; #echo 'Pagi Tepat Waktu'
-        } elseif(strtotime($time) > strtotime($morningLimit) && strtotime($time) < strtotime($shiftLimit) ) {
+        } elseif(strtotime($time) > strtotime($pagi) && strtotime($time) < strtotime($siang) ) {
             $status = 2; #echo 'Pagi Terlambat'
-        } elseif(strtotime($time) < strtotime($afternoonLimit) && strtotime($time) > strtotime($shiftLimit)) {
+        } elseif(strtotime($time) < strtotime($sore) && strtotime($time) > strtotime($siang)) {
             $status = 3; #echo 'Siang Tepat Waktu'
-        } elseif(strtotime($time) > strtotime($afternoonLimit) && strtotime($time) > strtotime($shiftLimit)) {
+        } elseif(strtotime($time) > strtotime($sore) && strtotime($time) > strtotime($siang)) {
             $status = 4; #echo 'Siang Terlambat'
         }
 

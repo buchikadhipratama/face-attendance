@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\WorkingHour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WorkingHourController extends Controller
 {
@@ -51,9 +52,21 @@ class WorkingHourController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request,[
+            'shift' => 'required',
+            'hour' => 'required',
+        ]);
+
+        $hour = WorkingHour::find($request->id);
+
+        $hour->shift = $request->input('shift');
+        $hour->time = ('2021-01-01') .' '. $request->input('hour');
+
+        $hour->save();
+        return redirect()->back()->with('update','Data updated successfully!');
+
     }
 
 

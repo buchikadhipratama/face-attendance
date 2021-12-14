@@ -39,10 +39,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th class="">user_id</th>
                                     <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Jabatan</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -58,9 +58,9 @@
                                             <td>{{ $user->roles['role_name'] }}</td>
                                             <td>
                                                 @if ($user->status == 1)
-                                                    Active
+                                                    Aktif
                                                 @else
-                                                    Not Active
+                                                    Tidak Aktif
                                                 @endif
                                             </td>
                                             <td>
@@ -106,14 +106,14 @@
                                     placeholder="name">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email Address</label>
+                                <label for="email">Alamat Email</label>
                                 <input type="email" class="form-control" id="emailAddress" name="emailAddress"
                                     placeholder="Email Address">
                             </div>
                             <div class="form-group">
-                                <label for="role">Select Role</label>
+                                <label for="role">Jabatan</label>
                                 <select class="form-control" id="role" name="role" required>
-                                    <option selected disabled>Select your age</option>
+                                    <option selected disabled>pilih jabatan</option>
                                     @foreach ($roles as $r)
                                         <option value="{{ $r->id }}">
                                             {{ $r->role_name }}</option>
@@ -123,8 +123,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input id="btnUpdate" type="submit" class="btn btn-primary " value="Update Data">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <input id="btnUpdate" type="submit" class="btn btn-primary " value="Perbarui Data">
                     </div>
                 </form>
             </div>

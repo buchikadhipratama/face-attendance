@@ -88,7 +88,7 @@ Route::group(['prefix' => 'datamaster', 'middleware'=> ['auth']], function(){
 
     Route::group(['prefix' => 'working-hour'], function(){
         Route::get('/', [WorkingHourController::class, 'index']);
-        Route::post('working-hour', [WorkingHourController::class, 'update']);
+        Route::post('update', [WorkingHourController::class, 'update']);
         Route::post('working-hour', [WorkingHourController::class, 'delete']);
     });
 });
